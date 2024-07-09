@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "G3.Maui.Core", "G3.Maui.Core\G3.Maui.Core.csproj", "{2A60CA2B-2564-4141-8BD2-AD7AE3392117}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "G3.Maui.Core", "G3.Maui.Core\G3.Maui.Core.csproj", "{2A60CA2B-2564-4141-8BD2-AD7AE3392117}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F17EBD61-C5CF-4677-B811-DB367454DF2C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{695CF704-1A4C-437A-A350-24070A8AA696}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\workflows\nuget.yml = .github\workflows\nuget.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +26,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{695CF704-1A4C-437A-A350-24070A8AA696} = {F17EBD61-C5CF-4677-B811-DB367454DF2C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E019A57D-5DA9-413A-9993-57BD98948DEC}

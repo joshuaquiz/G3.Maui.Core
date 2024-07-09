@@ -1,13 +1,13 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+name: NuGet
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - master
   pull_request:
-    branches: [ "main" ]
+    types: [closed]
+    branches:
+      - master
 
 jobs:
   build:
@@ -29,7 +29,9 @@ jobs:
         java-version: '11'
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Build solution and generate NuGet package
+      run: |
+        cd <project>
+        dotnet pack -c Release -o out
+    - name: Push generated package to GitHub registry
+      run: dotnet nuget push ./<project>/out/*.nupkg --skip-duplicate --no-symbols true
