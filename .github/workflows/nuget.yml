@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: [closed]
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -34,5 +34,9 @@ jobs:
       run: |
         cd G3.Maui.Core
         dotnet pack -c Release -o out
+    - name: Prep packages
+      run: dotnet nuget add source --username Joshua_G --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/joshuaquiz/index.json"
+    - name: Publish to GitHub packages
+      run: dotnet nuget push ./G3.Maui.Core/out/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }}  --source "github"
     - name: Push generated package to GitHub registry
       run: dotnet nuget push ./G3.Maui.Core/out/*.nupkg --skip-duplicate --no-symbols true
