@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using G3.Maui.Core.Exceptions;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 
 namespace G3.Maui.Core.Models;
 
@@ -16,10 +17,12 @@ namespace G3.Maui.Core.Models;
 /// <param name="connectivity"></param>
 /// <param name="httpClient"></param>
 /// <param name="memoryCache"></param>
+/// <param name="logger"></param>
 public abstract class BaseHttpClient(
     IConnectivity connectivity,
     HttpClient httpClient,
-    IMemoryCache memoryCache)
+    IMemoryCache memoryCache,
+    ILogger<BaseHttpClient> logger)
     : HttpClient
 {
     private readonly SemaphoreSlim _lookupSemaphore = new(1);
@@ -39,8 +42,18 @@ public abstract class BaseHttpClient(
             HttpMethod.Get,
             url,
             cancellationToken);
-        await _semaphoreSlims[url.AbsolutePath][HttpMethod.Get].WaitAsync(
-            cancellationToken);
+        SemaphoreSlim? httpRequest = null;
+        if (_semaphoreSlims.TryGetValue(
+                url.AbsolutePath,
+                out var requestDictionary)
+            && requestDictionary.TryGetValue(
+                HttpMethod.Get,
+                out httpRequest))
+        {
+            await httpRequest.WaitAsync(
+                cancellationToken);
+        }
+
         try
         {
             return await memoryCache.GetOrCreateAsync(
@@ -63,9 +76,12 @@ public abstract class BaseHttpClient(
                                item.AbsoluteExpirationRelativeToNow = cacheExpiry ?? TimeSpan.FromSeconds(3);
                                return result;
                            }
-                           catch
+                           catch (Exception e)
                            {
-                               item.AbsoluteExpirationRelativeToNow = TimeSpan.Zero;
+                               logger.LogError(
+                                   e.Message,
+                                   e);
+                               item.AbsoluteExpirationRelativeToNow = TimeSpan.FromMicroseconds(1);
                                throw;
                            }
                        })
@@ -74,8 +90,9 @@ public abstract class BaseHttpClient(
         }
         finally
         {
-            _semaphoreSlims[url.AbsolutePath][HttpMethod.Get].Release(
-                1);
+            httpRequest
+                ?.Release(
+                    1);
         }
     }
 
@@ -133,8 +150,18 @@ public abstract class BaseHttpClient(
             httpMethod,
             url,
             cancellationToken);
-        await _semaphoreSlims[url.AbsolutePath][httpMethod].WaitAsync(
-            cancellationToken);
+        SemaphoreSlim? httpRequest = null;
+        if (_semaphoreSlims.TryGetValue(
+                url.AbsolutePath,
+                out var requestDictionary)
+            && requestDictionary.TryGetValue(
+                httpMethod,
+                out httpRequest))
+        {
+            await httpRequest.WaitAsync(
+                cancellationToken);
+        }
+
         try
         {
             var result = await httpClient.SendAsync(
@@ -164,8 +191,9 @@ public abstract class BaseHttpClient(
         }
         finally
         {
-            _semaphoreSlims[url.AbsolutePath][httpMethod].Release(
-                1);
+            httpRequest
+                ?.Release(
+                    1);
         }
     }
 
@@ -174,25 +202,32 @@ public abstract class BaseHttpClient(
         Uri url,
         CancellationToken cancellationToken)
     {
-        await _lookupSemaphore.WaitAsync(
-            cancellationToken);
-        if (!_semaphoreSlims.ContainsKey(
-                url.AbsolutePath))
+        try
         {
-            _semaphoreSlims.TryAdd(
-                url.AbsolutePath,
-                new ConcurrentDictionary<HttpMethod, SemaphoreSlim>());
-        }
+            await _lookupSemaphore.WaitAsync(
+                cancellationToken);
+            if (!_semaphoreSlims.ContainsKey(
+                    url.AbsolutePath))
+            {
+                _semaphoreSlims.TryAdd(
+                    url.AbsolutePath,
+                    new ConcurrentDictionary<HttpMethod, SemaphoreSlim>());
+            }
 
-        if (!_semaphoreSlims[url.AbsolutePath].ContainsKey(
-                httpMethod))
+            if (!_semaphoreSlims[url.AbsolutePath].ContainsKey(
+                    httpMethod))
+            {
+                _semaphoreSlims[url.AbsolutePath].TryAdd(
+                    httpMethod,
+                    new SemaphoreSlim(1));
+            }
+
+            _lookupSemaphore.Release(
+                1);
+        }
+        catch (TaskCanceledException)
         {
-            _semaphoreSlims[url.AbsolutePath].TryAdd(
-                httpMethod,
-                new SemaphoreSlim(1));
+            // Do nothing.
         }
-
-        _lookupSemaphore.Release(
-            1);
     }
 }

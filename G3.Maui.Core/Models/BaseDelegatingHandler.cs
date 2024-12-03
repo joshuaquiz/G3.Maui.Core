@@ -31,7 +31,8 @@ public abstract class BaseDelegatingHandler(
         var resultFunction = mockedHttpRequests
             .FirstOrDefault(x =>
                 x.UriPattern.IsMatch(
-                    request.RequestUri!.AbsoluteUri))
+                        request.RequestUri?.OriginalString
+                        ?? string.Empty))
             ?.HttpMethodActions
             .FirstOrDefault(x =>
                 x.HttpMethod == request.Method)
