@@ -23,11 +23,14 @@ jobs:
       shell: pwsh
       run: |
         dotnet workload install maui --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
-        dotnet workload install android maui wasm-tools --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
-    - uses: actions/setup-java@v2
-      with:
-        distribution: 'microsoft'
-        java-version: '11'
+    - name: Install .NET MAUI android and wasm-tools
+      shell: pwsh
+      run: |
+        dotnet workload install android wasm-tools --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
+#    - uses: actions/setup-java@v2
+#      with:
+#        distribution: 'microsoft'
+#        java-version: '11'
     - name: Restore dependencies
       run: dotnet restore
     - name: Build solution and generate NuGet package
