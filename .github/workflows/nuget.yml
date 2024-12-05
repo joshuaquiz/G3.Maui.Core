@@ -35,6 +35,6 @@ jobs:
     - name: Open output folder
       run: cd out
     - name: Publish to NuGet
-      run: dotnet nuget push *.nupkg --skip-duplicate --api-key qz2jga8pl3dvn2akksyquwcs9ygggg4exypy3bhxy6w6x6 --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push G3Software.Net.Maui.Core.2.0.0.nupkg --skip-duplicate --api-key qz2jga8pl3dvn2akksyquwcs9ygggg4exypy3bhxy6w6x6 --source https://api.nuget.org/v3/index.json
     - name: Publish to GitHub packages
-      run: dotnet nuget push *.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+      run: dotnet nuget push G3Software.Net.Maui.Core.2.0.0.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
