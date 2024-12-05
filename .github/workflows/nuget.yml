@@ -22,8 +22,6 @@ jobs:
     - name: Install .NET MAUI
       shell: pwsh
       run: dotnet workload install maui --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
-    - name: dotnet workload list
-      run: dotnet workload list
     - name: dotnet workload update
       run: dotnet workload update
     - name: Restore dependencies
