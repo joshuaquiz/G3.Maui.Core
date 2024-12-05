@@ -36,8 +36,8 @@ jobs:
     - name: Build solution and generate NuGet package
       run: dotnet pack --no-build --no-restore -c Release -o out
     - name: Prep packages
-      run: dotnet nuget add source --username Joshua_G --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/joshuaquiz/index.json"
+      run: dotnet nuget --api-key qz2jga8pl3dvn2akksyquwcs9ygggg4exypy3bhxy6w6x6 --source https://api.nuget.org/v3/index.json
+    - name: Publish to NuGet
+      run: dotnet nuget push ./G3.Maui.Core/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
     - name: Publish to GitHub packages
-      run: dotnet nuget push ./G3.Maui.Core/out/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }}  --source "github"
-    - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./G3.Maui.Core/out/*.nupkg --skip-duplicate --no-symbols true
+      run: dotnet nuget push ./G3.Maui.Core/out/*.nupkg --skip-duplicate
