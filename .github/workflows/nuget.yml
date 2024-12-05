@@ -22,9 +22,6 @@ jobs:
     - name: Install .NET MAUI
       shell: pwsh
       run: dotnet workload install maui --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
-    - name: Install .NET MAUI android and wasm-tools
-      shell: pwsh
-      run: dotnet workload install android wasm-tools --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
     - name: Restore dependencies
       run: dotnet restore
     - name: Open main folder
@@ -33,6 +30,8 @@ jobs:
       run: dotnet build --no-restore
     - name: dotnet workload list
       run: dotnet workload list
+    - name: dotnet workload update
+      run: dotnet workload update
     - name: Build solution and generate NuGet package
       run: dotnet pack --no-build --no-restore -c Release -o out
     - name: Prep packages
