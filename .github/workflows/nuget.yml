@@ -18,20 +18,20 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 9.0.x
     - name: Install .NET MAUI
       shell: pwsh
       run: dotnet workload install maui --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
+    - name: dotnet workload list
+      run: dotnet workload list
+    - name: dotnet workload update
+      run: dotnet workload update
     - name: Restore dependencies
       run: dotnet restore
     - name: Open main folder
       run: cd G3.Maui.Core
     - name: Build
       run: dotnet build --no-restore
-    - name: dotnet workload list
-      run: dotnet workload list
-    - name: dotnet workload update
-      run: dotnet workload update
     - name: Build solution and generate NuGet package
       run: dotnet pack --no-build --no-restore -c Release -o out
     - name: Prep packages
