@@ -26,18 +26,15 @@ jobs:
       run: dotnet workload update
     - name: Restore dependencies
       run: dotnet restore
-    - name: Open main folder
+    - name: Open main project folder
       run: cd G3.Maui.Core
     - name: Build
       run: dotnet build -c Release --no-restore
     - name: Build solution and generate NuGet package
       run: dotnet pack --no-build --no-restore -c Release -o out
-    - name: List
-      run: |
-          ls .
-          ls ./G3.Maui.Core
-          ls ./out
+    - name: Open output folder
+      run: cd out
     - name: Publish to NuGet
-      run: dotnet nuget push ./out/*.nupkg --skip-duplicate --api-key qz2jga8pl3dvn2akksyquwcs9ygggg4exypy3bhxy6w6x6 --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push *.nupkg --skip-duplicate --api-key qz2jga8pl3dvn2akksyquwcs9ygggg4exypy3bhxy6w6x6 --source https://api.nuget.org/v3/index.json
     - name: Publish to GitHub packages
-      run: dotnet nuget push ./out/*.nupkg --skip-duplicate
+      run: dotnet nuget push *.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
