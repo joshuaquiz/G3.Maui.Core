@@ -27,16 +27,14 @@ jobs:
       shell: pwsh
       run: |
         dotnet workload install android wasm-tools --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
-#    - uses: actions/setup-java@v2
-#      with:
-#        distribution: 'microsoft'
-#        java-version: '11'
     - name: Restore dependencies
       run: dotnet restore
+    - name: Open main folder
+      run: cd G3.Maui.Core
+    - name: Build
+      run: dotnet build --no-restore
     - name: Build solution and generate NuGet package
-      run: |
-        cd G3.Maui.Core
-        dotnet pack -c Release -o out
+      run: dotnet pack --no-build --no-restore -c Release -o out
     - name: Prep packages
       run: dotnet nuget add source --username Joshua_G --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/joshuaquiz/index.json"
     - name: Publish to GitHub packages
