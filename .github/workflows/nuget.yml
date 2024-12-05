@@ -36,8 +36,8 @@ jobs:
       run: |
           ls .
           ls ./G3.Maui.Core
-          ls ./G3.Maui.Core/out
+          ls ./out
     - name: Publish to NuGet
-      run: dotnet nuget push ./G3.Maui.Core/out/*.nupkg --skip-duplicate --api-key qz2jga8pl3dvn2akksyquwcs9ygggg4exypy3bhxy6w6x6 --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ./out/*.nupkg --skip-duplicate --api-key qz2jga8pl3dvn2akksyquwcs9ygggg4exypy3bhxy6w6x6 --source https://api.nuget.org/v3/index.json
     - name: Publish to GitHub packages
-      run: dotnet nuget push ./G3.Maui.Core/out/*.nupkg --skip-duplicate
+      run: dotnet nuget push ./out/*.nupkg --skip-duplicate
