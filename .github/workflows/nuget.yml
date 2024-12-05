@@ -32,5 +32,7 @@ jobs:
       run: dotnet pack --no-build --no-restore -c Release -o out
     - name: Publish to NuGet
       run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGETTOKEN }} --source https://api.nuget.org/v3/index.json
+    - name: Add GitHub to Nuget package sources
+      run: dotnet nuget add source --username joshuaquiz@gmail.com --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/joshuaquiz/index.json"
     - name: Publish to GitHub packages
       run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
