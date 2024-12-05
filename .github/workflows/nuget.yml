@@ -32,6 +32,11 @@ jobs:
       run: dotnet build -c Release --no-restore
     - name: Build solution and generate NuGet package
       run: dotnet pack --no-build --no-restore -c Release -o out
+    - name: List
+      run: |
+          ls .
+          ls ./G3.Maui.Core
+          ls ./G3.Maui.Core/out
     - name: Publish to NuGet
       run: dotnet nuget push ./G3.Maui.Core/out/*.nupkg --skip-duplicate --api-key qz2jga8pl3dvn2akksyquwcs9ygggg4exypy3bhxy6w6x6 --source https://api.nuget.org/v3/index.json
     - name: Publish to GitHub packages
