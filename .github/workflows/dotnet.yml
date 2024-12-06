@@ -1,6 +1,3 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
 name: .NET
 
 on:
@@ -18,18 +15,15 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 9.0.x
     - name: Install .NET MAUI
       shell: pwsh
-      run: |
-        dotnet workload install maui --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
-    - name: Install .NET MAUI android and wasm-tools
-      shell: pwsh
-      run: |
-        dotnet workload install android wasm-tools --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
+      run: dotnet workload install maui --source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json --source https://api.nuget.org/v3/index.json
+    - name: Workload update
+      run: dotnet workload update
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --no-restore --verbosity normal
