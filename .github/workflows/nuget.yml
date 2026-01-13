@@ -18,10 +18,10 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
     - name: Install .NET MAUI
       shell: pwsh
-      run: dotnet workload install maui --source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json --source https://api.nuget.org/v3/index.json
+      run: dotnet workload install maui --source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet10/nuget/v3/index.json --source https://api.nuget.org/v3/index.json
     - name: Workload update
       run: dotnet workload update
     - name: Restore dependencies
