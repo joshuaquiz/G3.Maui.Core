@@ -4,8 +4,6 @@ using G3.Maui.Core.Components.LoadingOverlay;
 using G3.Maui.Core.Models;
 using G3.Maui.Core.ViewModels;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.PlatformConfiguration;
-using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 using Microsoft.Maui.Graphics;
 
 namespace G3.Maui.Core.Views;
@@ -252,7 +250,7 @@ public partial class BasePage : ContentPage
     {
         if (b is BasePage page && n is bool useSafeArea)
         {
-            Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific.Page.SetUseSafeArea(page, useSafeArea);
+            page.SafeAreaEdges = useSafeArea ? Microsoft.Maui.SafeAreaEdges.All : Microsoft.Maui.SafeAreaEdges.None;
         }
     }
 

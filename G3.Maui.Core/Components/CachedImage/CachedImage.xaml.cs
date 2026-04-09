@@ -212,8 +212,8 @@ public partial class CachedImage : ContentView
 
         var duration = FadeDuration;
         await Task.WhenAll(
-            CachedImageControl.FadeTo(1, duration),
-            PlaceholderBox.FadeTo(0, duration));
+            CachedImageControl.FadeToAsync(1, duration),
+            PlaceholderBox.FadeToAsync(0, duration));
     }
 
     /// <inheritdoc />
