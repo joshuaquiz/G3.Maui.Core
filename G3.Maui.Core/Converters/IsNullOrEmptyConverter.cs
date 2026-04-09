@@ -9,6 +9,7 @@ namespace G3.Maui.Core.Converters;
 /// </summary>
 public sealed class IsNullOrEmptyConverter : IValueConverter
 {
+    /// <inheritdoc />
     public object Convert(
         object? value,
         Type targetType,
@@ -16,6 +17,7 @@ public sealed class IsNullOrEmptyConverter : IValueConverter
         CultureInfo culture)
         => string.IsNullOrWhiteSpace(value as string);
 
+    /// <inheritdoc />
     public object ConvertBack(
         object? value,
         Type targetType,

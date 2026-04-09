@@ -13,6 +13,7 @@ namespace G3.Maui.Core.Converters;
 /// </summary>
 public sealed class NumericComparisonConverter : IValueConverter
 {
+    /// <inheritdoc />
     public object Convert(
         object? value,
         Type targetType,
@@ -64,6 +65,7 @@ public sealed class NumericComparisonConverter : IValueConverter
         };
     }
 
+    /// <inheritdoc />
     public object ConvertBack(
         object? value,
         Type targetType,

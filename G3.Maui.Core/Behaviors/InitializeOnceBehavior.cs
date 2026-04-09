@@ -11,12 +11,15 @@ namespace G3.Maui.Core.Behaviors;
 /// </summary>
 public class InitializeOnceBehavior : Behavior<Page>
 {
+    /// <summary>Bindable property for <see cref="Command"/>.</summary>
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(InitializeOnceBehavior));
 
+    /// <summary>Bindable property for <see cref="CommandParameter"/>.</summary>
     public static readonly BindableProperty CommandParameterProperty =
         BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(InitializeOnceBehavior));
 
+    /// <summary>Bindable property for <see cref="ResetOnDisappearing"/>.</summary>
     public static readonly BindableProperty ResetOnDisappearingProperty =
         BindableProperty.Create(nameof(ResetOnDisappearing), typeof(bool), typeof(InitializeOnceBehavior), false);
 
@@ -47,6 +50,7 @@ public class InitializeOnceBehavior : Behavior<Page>
     private Page? _page;
     private bool _initialized;
 
+    /// <inheritdoc />
     protected override void OnAttachedTo(Page bindable)
     {
         base.OnAttachedTo(bindable);
@@ -58,6 +62,7 @@ public class InitializeOnceBehavior : Behavior<Page>
         }
     }
 
+    /// <inheritdoc />
     protected override void OnDetachingFrom(Page bindable)
     {
         base.OnDetachingFrom(bindable);

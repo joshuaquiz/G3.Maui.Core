@@ -10,6 +10,7 @@ namespace G3.Maui.Core.Converters;
 /// </summary>
 public sealed class CarouselPositionConverter : IValueConverter
 {
+    /// <inheritdoc />
     public object? Convert(
         object? value,
         Type targetType,
@@ -17,6 +18,7 @@ public sealed class CarouselPositionConverter : IValueConverter
         CultureInfo culture)
         => value is int p && p < 0 ? 0 : value;
 
+    /// <inheritdoc />
     public object? ConvertBack(
         object? value,
         Type targetType,

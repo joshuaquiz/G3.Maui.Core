@@ -20,6 +20,7 @@ public sealed class DateTimeToStringConverter : IValueConverter
     /// </summary>
     public string Format { get; set; } = "g";
 
+    /// <inheritdoc />
     public object Convert(
         object? value,
         Type targetType,
@@ -35,6 +36,7 @@ public sealed class DateTimeToStringConverter : IValueConverter
         return dt.ToString(format, culture);
     }
 
+    /// <inheritdoc />
     public object ConvertBack(
         object? value,
         Type targetType,

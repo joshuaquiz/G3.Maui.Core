@@ -10,21 +10,27 @@ namespace G3.Maui.Core.Components.EmptyState;
 /// </summary>
 public partial class EmptyStateView : ContentView
 {
+    /// <summary>Bindable property for <see cref="IconSource"/>.</summary>
     public static readonly BindableProperty IconSourceProperty =
         BindableProperty.Create(nameof(IconSource), typeof(string), typeof(EmptyStateView), "search");
 
+    /// <summary>Bindable property for <see cref="Title"/>.</summary>
     public static readonly BindableProperty TitleProperty =
         BindableProperty.Create(nameof(Title), typeof(string), typeof(EmptyStateView), "No Items Found");
 
+    /// <summary>Bindable property for <see cref="Message"/>.</summary>
     public static readonly BindableProperty MessageProperty =
         BindableProperty.Create(nameof(Message), typeof(string), typeof(EmptyStateView), "There are no items to display.");
 
+    /// <summary>Bindable property for <see cref="ActionButtonText"/>.</summary>
     public static readonly BindableProperty ActionButtonTextProperty =
         BindableProperty.Create(nameof(ActionButtonText), typeof(string), typeof(EmptyStateView), "Retry");
 
+    /// <summary>Bindable property for <see cref="ActionCommand"/>.</summary>
     public static readonly BindableProperty ActionCommandProperty =
         BindableProperty.Create(nameof(ActionCommand), typeof(ICommand), typeof(EmptyStateView), null);
 
+    /// <summary>Bindable property for <see cref="ShowActionButton"/>.</summary>
     public static readonly BindableProperty ShowActionButtonProperty =
         BindableProperty.Create(nameof(ShowActionButton), typeof(bool), typeof(EmptyStateView), false);
 
@@ -70,6 +76,7 @@ public partial class EmptyStateView : ContentView
         set => SetValue(ShowActionButtonProperty, value);
     }
 
+    /// <summary>Initializes a new instance of <see cref="EmptyStateView"/>.</summary>
     public EmptyStateView()
     {
         InitializeComponent();

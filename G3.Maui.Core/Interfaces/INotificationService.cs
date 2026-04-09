@@ -38,7 +38,10 @@ public interface INotificationService
 /// <summary>Duration for toast messages.</summary>
 public enum ToastDuration
 {
+    /// <summary>Short toast duration.</summary>
     Short,
+
+    /// <summary>Long toast duration.</summary>
     Long
 }
 

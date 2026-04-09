@@ -12,6 +12,7 @@ namespace G3.Maui.Core.Converters;
 /// </summary>
 public sealed class EqualToConverter : IValueConverter
 {
+    /// <inheritdoc />
     public object Convert(
         object? value,
         Type targetType,
@@ -30,6 +31,7 @@ public sealed class EqualToConverter : IValueConverter
         return value.ToString() == parameter.ToString();
     }
 
+    /// <inheritdoc />
     public object ConvertBack(
         object? value,
         Type targetType,

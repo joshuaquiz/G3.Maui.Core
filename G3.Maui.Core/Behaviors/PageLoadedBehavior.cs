@@ -10,12 +10,15 @@ namespace G3.Maui.Core.Behaviors;
 /// </summary>
 public class PageLoadedBehavior : Behavior<Page>
 {
+    /// <summary>Bindable property for <see cref="Command"/>.</summary>
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(PageLoadedBehavior));
 
+    /// <summary>Bindable property for <see cref="CommandParameter"/>.</summary>
     public static readonly BindableProperty CommandParameterProperty =
         BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(PageLoadedBehavior));
 
+    /// <summary>Bindable property for <see cref="ExecuteOnce"/>.</summary>
     public static readonly BindableProperty ExecuteOnceProperty =
         BindableProperty.Create(nameof(ExecuteOnce), typeof(bool), typeof(PageLoadedBehavior), true);
 
@@ -43,6 +46,7 @@ public class PageLoadedBehavior : Behavior<Page>
     private Page? _page;
     private bool _executed;
 
+    /// <inheritdoc />
     protected override void OnAttachedTo(Page bindable)
     {
         base.OnAttachedTo(bindable);
@@ -50,6 +54,7 @@ public class PageLoadedBehavior : Behavior<Page>
         _page.Loaded += OnLoaded;
     }
 
+    /// <inheritdoc />
     protected override void OnDetachingFrom(Page bindable)
     {
         base.OnDetachingFrom(bindable);

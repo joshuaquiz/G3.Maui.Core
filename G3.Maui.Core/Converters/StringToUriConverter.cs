@@ -11,6 +11,7 @@ namespace G3.Maui.Core.Converters;
 /// </summary>
 public sealed class StringToUriConverter : IValueConverter
 {
+    /// <inheritdoc />
     public object? Convert(
         object? value,
         Type targetType,
@@ -25,6 +26,7 @@ public sealed class StringToUriConverter : IValueConverter
         return null;
     }
 
+    /// <inheritdoc />
     public object? ConvertBack(
         object? value,
         Type targetType,

@@ -15,19 +15,24 @@ namespace G3.Maui.Core.Components.LoadingOverlay;
 /// </summary>
 public partial class LoadingOverlay : Grid
 {
+    /// <summary>Bindable property for <see cref="IsLoading"/>.</summary>
     public static readonly BindableProperty IsLoadingProperty =
         BindableProperty.Create(nameof(IsLoading), typeof(bool), typeof(LoadingOverlay), false,
             propertyChanged: OnIsLoadingChanged);
 
+    /// <summary>Bindable property for <see cref="LoadingMessage"/>.</summary>
     public static readonly BindableProperty LoadingMessageProperty =
         BindableProperty.Create(nameof(LoadingMessage), typeof(string), typeof(LoadingOverlay), "Loading...");
 
+    /// <summary>Bindable property for <see cref="CancellationCommand"/>.</summary>
     public static readonly BindableProperty CancellationCommandProperty =
         BindableProperty.Create(nameof(CancellationCommand), typeof(ICommand), typeof(LoadingOverlay), null);
 
+    /// <summary>Bindable property for <see cref="CancellationDelay"/>.</summary>
     public static readonly BindableProperty CancellationDelayProperty =
         BindableProperty.Create(nameof(CancellationDelay), typeof(TimeSpan), typeof(LoadingOverlay), TimeSpan.FromSeconds(5));
 
+    /// <summary>Bindable property for <see cref="CancellationButtonText"/>.</summary>
     public static readonly BindableProperty CancellationButtonTextProperty =
         BindableProperty.Create(nameof(CancellationButtonText), typeof(string), typeof(LoadingOverlay), "Cancel");
 
@@ -75,6 +80,7 @@ public partial class LoadingOverlay : Grid
         set => SetValue(CancellationButtonTextProperty, value);
     }
 
+    /// <summary>Initializes a new instance of <see cref="LoadingOverlay"/>.</summary>
     public LoadingOverlay()
     {
         InitializeComponent();

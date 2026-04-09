@@ -7,12 +7,13 @@ namespace G3.Maui.Core.Converters;
 /// <summary>
 /// Returns true when the bound value is equal to its type's default/zero value.
 /// Supports <see cref="TimeSpan"/>, <see cref="int"/>, reference types (null check),
-/// and any other value type (compared against <see cref="Activator.CreateInstance"/>).
+/// and any other value type (compared against <see cref="Activator.CreateInstance(Type)"/>).
 /// An optional converter parameter sets a custom minimum threshold for TimeSpan and int:
 /// e.g., ConverterParameter="60" with a TimeSpan returns true when TotalSeconds is 60 or less.
 /// </summary>
 public sealed class DefaultValueConverter : IValueConverter
 {
+    /// <inheritdoc />
     public object Convert(
         object? value,
         Type targetType,
@@ -40,6 +41,7 @@ public sealed class DefaultValueConverter : IValueConverter
         return value == Activator.CreateInstance(targetType);
     }
 
+    /// <inheritdoc />
     public object ConvertBack(
         object? value,
         Type targetType,

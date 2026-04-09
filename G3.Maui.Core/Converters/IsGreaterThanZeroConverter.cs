@@ -12,6 +12,7 @@ public sealed class IsGreaterThanZeroConverter : IValueConverter
 {
     private static readonly NumericComparisonConverter _inner = new();
 
+    /// <inheritdoc />
     public object Convert(
         object? value,
         Type targetType,
@@ -19,6 +20,7 @@ public sealed class IsGreaterThanZeroConverter : IValueConverter
         CultureInfo culture)
         => _inner.Convert(value, targetType, ">", culture);
 
+    /// <inheritdoc />
     public object ConvertBack(
         object? value,
         Type targetType,

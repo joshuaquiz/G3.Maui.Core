@@ -12,6 +12,7 @@ namespace G3.Maui.Core.Converters;
 /// </summary>
 public sealed class CollectionNotEmptyToBoolConverter : IValueConverter
 {
+    /// <inheritdoc />
     public object Convert(
         object? value,
         Type targetType,
@@ -30,6 +31,7 @@ public sealed class CollectionNotEmptyToBoolConverter : IValueConverter
         return false;
     }
 
+    /// <inheritdoc />
     public object ConvertBack(
         object? value,
         Type targetType,

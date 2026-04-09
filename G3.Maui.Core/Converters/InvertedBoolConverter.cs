@@ -10,6 +10,7 @@ namespace G3.Maui.Core.Converters;
 /// </summary>
 public sealed class InvertedBoolConverter : IValueConverter
 {
+    /// <inheritdoc />
     public object Convert(
         object? value,
         Type targetType,
@@ -24,6 +25,7 @@ public sealed class InvertedBoolConverter : IValueConverter
         return true;
     }
 
+    /// <inheritdoc />
     public object ConvertBack(
         object? value,
         Type targetType,

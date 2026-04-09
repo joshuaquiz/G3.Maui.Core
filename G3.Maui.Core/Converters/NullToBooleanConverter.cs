@@ -10,6 +10,7 @@ namespace G3.Maui.Core.Converters;
 /// </summary>
 public sealed class NullToBooleanConverter : IValueConverter
 {
+    /// <inheritdoc />
     public object Convert(
         object? value,
         Type targetType,
@@ -21,6 +22,7 @@ public sealed class NullToBooleanConverter : IValueConverter
         return invert ? !isNull : isNull;
     }
 
+    /// <inheritdoc />
     public object ConvertBack(
         object? value,
         Type targetType,

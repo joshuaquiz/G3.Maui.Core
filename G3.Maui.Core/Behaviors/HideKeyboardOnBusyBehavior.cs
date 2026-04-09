@@ -11,6 +11,7 @@ namespace G3.Maui.Core.Behaviors;
 /// </summary>
 public class HideKeyboardOnBusyBehavior : Behavior<VisualElement>
 {
+    /// <summary>Bindable property for <see cref="ViewModel"/>.</summary>
     public static readonly BindableProperty ViewModelProperty =
         BindableProperty.Create(
             nameof(ViewModel),
@@ -27,6 +28,7 @@ public class HideKeyboardOnBusyBehavior : Behavior<VisualElement>
 
     private VisualElement? _element;
 
+    /// <inheritdoc />
     protected override void OnAttachedTo(VisualElement bindable)
     {
         base.OnAttachedTo(bindable);
@@ -37,6 +39,7 @@ public class HideKeyboardOnBusyBehavior : Behavior<VisualElement>
         }
     }
 
+    /// <inheritdoc />
     protected override void OnDetachingFrom(VisualElement bindable)
     {
         base.OnDetachingFrom(bindable);

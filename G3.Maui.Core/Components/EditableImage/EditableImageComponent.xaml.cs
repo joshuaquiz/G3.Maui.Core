@@ -29,49 +29,63 @@ public partial class EditableImageComponent : ContentView
     private readonly ILogger<EditableImageComponent> _logger;
     private Uri? _currentImageUrl;
 
+    /// <summary>Bindable property for <see cref="LabelText"/>.</summary>
     public static readonly BindableProperty LabelTextProperty =
         BindableProperty.Create(nameof(LabelText), typeof(string), typeof(EditableImageComponent), "Image (Optional)");
 
+    /// <summary>Bindable property for <see cref="ShowLabel"/>.</summary>
     public static readonly BindableProperty ShowLabelProperty =
         BindableProperty.Create(nameof(ShowLabel), typeof(bool), typeof(EditableImageComponent), true);
 
+    /// <summary>Bindable property for <see cref="PlaceholderText"/>.</summary>
     public static readonly BindableProperty PlaceholderTextProperty =
         BindableProperty.Create(nameof(PlaceholderText), typeof(string), typeof(EditableImageComponent), "Tap to Add Image");
 
+    /// <summary>Bindable property for <see cref="HintText"/>.</summary>
     public static readonly BindableProperty HintTextProperty =
         BindableProperty.Create(nameof(HintText), typeof(string), typeof(EditableImageComponent), "JPG or PNG, max 8MB");
 
+    /// <summary>Bindable property for <see cref="ImageHeight"/>.</summary>
     public static readonly BindableProperty ImageHeightProperty =
         BindableProperty.Create(nameof(ImageHeight), typeof(double), typeof(EditableImageComponent), 200.0);
 
+    /// <summary>Bindable property for <see cref="IsEditMode"/>.</summary>
     public static readonly BindableProperty IsEditModeProperty =
         BindableProperty.Create(nameof(IsEditMode), typeof(bool), typeof(EditableImageComponent), false,
             propertyChanged: OnIsEditModeChanged);
 
+    /// <summary>Bindable property for <see cref="ImageUrl"/>.</summary>
     public static readonly BindableProperty ImageUrlProperty =
         BindableProperty.Create(nameof(ImageUrl), typeof(Uri), typeof(EditableImageComponent),
             propertyChanged: OnImageUrlChanged);
 
+    /// <summary>Bindable property for <see cref="CornerRadius"/>.</summary>
     public static readonly BindableProperty CornerRadiusProperty =
         BindableProperty.Create(nameof(CornerRadius), typeof(double), typeof(EditableImageComponent), 0.0,
             propertyChanged: OnCornerRadiusChanged);
 
+    /// <summary>Bindable property for <see cref="ContainerAutomationId"/>.</summary>
     public static readonly BindableProperty ContainerAutomationIdProperty =
         BindableProperty.Create(nameof(ContainerAutomationId), typeof(string), typeof(EditableImageComponent));
 
+    /// <summary>Bindable property for <see cref="SelectImageCommand"/>.</summary>
     public static readonly BindableProperty SelectImageCommandProperty =
         BindableProperty.Create(nameof(SelectImageCommand), typeof(ICommand), typeof(EditableImageComponent));
 
+    /// <summary>Bindable property for <see cref="RemoveImageCommand"/>.</summary>
     public static readonly BindableProperty RemoveImageCommandProperty =
         BindableProperty.Create(nameof(RemoveImageCommand), typeof(ICommand), typeof(EditableImageComponent));
 
+    /// <summary>Bindable property for <see cref="MaxFileSizeMb"/>.</summary>
     public static readonly BindableProperty MaxFileSizeMbProperty =
         BindableProperty.Create(nameof(MaxFileSizeMb), typeof(double), typeof(EditableImageComponent), 8.0);
 
+    /// <summary>Bindable property for <see cref="AcceptedFileTypes"/>.</summary>
     public static readonly BindableProperty AcceptedFileTypesProperty =
         BindableProperty.Create(nameof(AcceptedFileTypes), typeof(string[]), typeof(EditableImageComponent),
             new[] { ".jpg", ".jpeg", ".png" });
 
+    /// <summary>Bindable property for <see cref="ShowCameraOption"/>.</summary>
     public static readonly BindableProperty ShowCameraOptionProperty =
         BindableProperty.Create(nameof(ShowCameraOption), typeof(bool), typeof(EditableImageComponent), false);
 
@@ -192,8 +206,11 @@ public partial class EditableImageComponent : ContentView
     /// <summary>True if the user has picked a new image since the component was last reset.</summary>
     public bool HasImageChanged => SelectedImageFile != null;
 
+    /// <summary>Initializes a new instance of <see cref="EditableImageComponent"/>.</summary>
     public EditableImageComponent() : this(Application.Current?.Handler?.MauiContext?.Services) { }
 
+    /// <summary>Initializes a new instance of <see cref="EditableImageComponent"/>.</summary>
+    /// <param name="serviceProvider">The service provider used to resolve dependencies.</param>
     public EditableImageComponent(IServiceProvider? serviceProvider)
     {
         InitializeComponent();

@@ -10,6 +10,7 @@ namespace G3.Maui.Core.Converters;
 /// </summary>
 public sealed class TimeSpanToStringConverter : IValueConverter
 {
+    /// <inheritdoc />
     public object Convert(
         object? value,
         Type targetType,
@@ -31,6 +32,7 @@ public sealed class TimeSpanToStringConverter : IValueConverter
         return $"{minutes} mins";
     }
 
+    /// <inheritdoc />
     public object ConvertBack(
         object? value,
         Type targetType,

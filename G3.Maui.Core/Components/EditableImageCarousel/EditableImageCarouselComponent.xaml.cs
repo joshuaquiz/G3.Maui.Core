@@ -22,7 +22,10 @@ namespace G3.Maui.Core.Components.EditableImageCarousel;
 /// </summary>
 public class EditModeImageItem
 {
+    /// <summary>The URI of the image to display, or null when this is the placeholder slot.</summary>
     public Uri? ImageUrl { get; set; }
+
+    /// <summary>True when this item represents the "add image" placeholder rather than an existing image.</summary>
     public bool IsPlaceholder { get; set; }
 }
 
@@ -40,37 +43,47 @@ public partial class EditableImageCarouselComponent : ContentView
     private readonly IMediaPickerService _mediaPickerService;
     private readonly ILogger<EditableImageCarouselComponent> _logger;
 
+    /// <summary>Bindable property for <see cref="ImageUrls"/>.</summary>
     public static readonly BindableProperty ImageUrlsProperty =
         BindableProperty.Create(nameof(ImageUrls), typeof(ObservableCollection<Uri>), typeof(EditableImageCarouselComponent),
             new ObservableCollection<Uri>(), propertyChanged: OnImageUrlsChanged);
 
+    /// <summary>Bindable property for <see cref="IsEditMode"/>.</summary>
     public static readonly BindableProperty IsEditModeProperty =
         BindableProperty.Create(nameof(IsEditMode), typeof(bool), typeof(EditableImageCarouselComponent), false,
             propertyChanged: OnIsEditModeChanged);
 
+    /// <summary>Bindable property for <see cref="CarouselHeight"/>.</summary>
     public static readonly BindableProperty CarouselHeightProperty =
         BindableProperty.Create(nameof(CarouselHeight), typeof(double), typeof(EditableImageCarouselComponent), 235.0);
 
+    /// <summary>Bindable property for <see cref="MaxImages"/>.</summary>
     public static readonly BindableProperty MaxImagesProperty =
         BindableProperty.Create(nameof(MaxImages), typeof(int), typeof(EditableImageCarouselComponent), 20);
 
+    /// <summary>Bindable property for <see cref="AddImageCommand"/>.</summary>
     public static readonly BindableProperty AddImageCommandProperty =
         BindableProperty.Create(nameof(AddImageCommand), typeof(ICommand), typeof(EditableImageCarouselComponent));
 
+    /// <summary>Bindable property for <see cref="RemoveImageCommand"/>.</summary>
     public static readonly BindableProperty RemoveImageCommandProperty =
         BindableProperty.Create(nameof(RemoveImageCommand), typeof(ICommand), typeof(EditableImageCarouselComponent));
 
+    /// <summary>Bindable property for <see cref="DisplayedImageUrls"/>.</summary>
     public static readonly BindableProperty DisplayedImageUrlsProperty =
         BindableProperty.Create(nameof(DisplayedImageUrls), typeof(List<Uri>), typeof(EditableImageCarouselComponent),
             null, BindingMode.OneWay);
 
+    /// <summary>Bindable property for <see cref="MaxFileSizeMb"/>.</summary>
     public static readonly BindableProperty MaxFileSizeMbProperty =
         BindableProperty.Create(nameof(MaxFileSizeMb), typeof(double), typeof(EditableImageCarouselComponent), 8.0);
 
+    /// <summary>Bindable property for <see cref="AcceptedFileTypes"/>.</summary>
     public static readonly BindableProperty AcceptedFileTypesProperty =
         BindableProperty.Create(nameof(AcceptedFileTypes), typeof(string[]), typeof(EditableImageCarouselComponent),
             new[] { ".jpg", ".jpeg", ".png" });
 
+    /// <summary>Bindable property for <see cref="ShowCameraOption"/>.</summary>
     public static readonly BindableProperty ShowCameraOptionProperty =
         BindableProperty.Create(nameof(ShowCameraOption), typeof(bool), typeof(EditableImageCarouselComponent), false);
 
@@ -168,8 +181,11 @@ public partial class EditableImageCarouselComponent : ContentView
     /// </summary>
     public Func<Uri, Task>? OnRemoveImageRequested { get; set; }
 
+    /// <summary>Initializes a new instance of <see cref="EditableImageCarouselComponent"/>.</summary>
     public EditableImageCarouselComponent() : this(Application.Current?.Handler?.MauiContext?.Services) { }
 
+    /// <summary>Initializes a new instance of <see cref="EditableImageCarouselComponent"/>.</summary>
+    /// <param name="serviceProvider">The service provider used to resolve dependencies.</param>
     public EditableImageCarouselComponent(IServiceProvider? serviceProvider)
     {
         InitializeComponent();

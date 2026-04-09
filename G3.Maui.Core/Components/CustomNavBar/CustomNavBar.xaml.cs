@@ -33,34 +33,43 @@ public partial class CustomNavBar : ContentView
 
     #region Bindable Properties
 
+    /// <summary>Bindable property for <see cref="Title"/>.</summary>
     public static readonly BindableProperty TitleProperty =
         BindableProperty.Create(nameof(Title), typeof(string), typeof(CustomNavBar), string.Empty,
             propertyChanged: OnTitleChanged);
 
+    /// <summary>Bindable property for <see cref="ShowBackButton"/>.</summary>
     public static readonly BindableProperty ShowBackButtonProperty =
         BindableProperty.Create(nameof(ShowBackButton), typeof(bool), typeof(CustomNavBar), false);
 
+    /// <summary>Bindable property for <see cref="BackCommand"/>.</summary>
     public static readonly BindableProperty BackCommandProperty =
         BindableProperty.Create(nameof(BackCommand), typeof(ICommand), typeof(CustomNavBar), null);
 
+    /// <summary>Bindable property for <see cref="Commands"/>.</summary>
     public static readonly BindableProperty CommandsProperty =
         BindableProperty.Create(nameof(Commands), typeof(ObservableCollection<NavBarCommand>), typeof(CustomNavBar),
             null, propertyChanged: OnCommandsChanged);
 
+    /// <summary>Bindable property for <see cref="Height"/>.</summary>
     public static new readonly BindableProperty HeightProperty =
         BindableProperty.Create(nameof(Height), typeof(double), typeof(CustomNavBar), 56.0);
 
+    /// <summary>Bindable property for <see cref="BackgroundColor"/>.</summary>
     public static new readonly BindableProperty BackgroundColorProperty =
         BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(CustomNavBar), null,
             propertyChanged: OnBackgroundColorChanged);
 
+    /// <summary>Bindable property for <see cref="IconTintColor"/>.</summary>
     public static readonly BindableProperty IconTintColorProperty =
         BindableProperty.Create(nameof(IconTintColor), typeof(Color), typeof(CustomNavBar), null,
             propertyChanged: OnIconTintColorChanged);
 
+    /// <summary>Bindable property for <see cref="HasTitle"/>.</summary>
     public static readonly BindableProperty HasTitleProperty =
         BindableProperty.Create(nameof(HasTitle), typeof(bool), typeof(CustomNavBar), false);
 
+    /// <summary>Bindable property for <see cref="TitleIsEditable"/>.</summary>
     public static readonly BindableProperty TitleIsEditableProperty =
         BindableProperty.Create(nameof(TitleIsEditable), typeof(bool), typeof(CustomNavBar), false);
 
@@ -136,6 +145,7 @@ public partial class CustomNavBar : ContentView
 
     #endregion
 
+    /// <summary>Initializes a new instance of <see cref="CustomNavBar"/>.</summary>
     public CustomNavBar()
     {
         InitializeComponent();

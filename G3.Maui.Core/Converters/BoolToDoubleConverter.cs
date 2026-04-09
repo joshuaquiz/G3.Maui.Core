@@ -17,6 +17,7 @@ public class BoolToDoubleConverter : IValueConverter
     /// <summary>Value returned when the binding value is false. Defaults to 0.0.</summary>
     public double FalseValue { get; set; } = 0.0;
 
+    /// <inheritdoc />
     public object? Convert(
         object? value,
         Type targetType,
@@ -31,6 +32,7 @@ public class BoolToDoubleConverter : IValueConverter
         return FalseValue;
     }
 
+    /// <inheritdoc />
     public object? ConvertBack(
         object? value,
         Type targetType,

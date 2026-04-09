@@ -24,6 +24,7 @@ public partial class BaseViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     private string _loadingMessage = "Loading...";
 
+    /// <summary>True when <see cref="IsBusy"/> is false.</summary>
     public bool IsNotBusy => !IsBusy;
 
     /// <summary>
@@ -94,6 +95,7 @@ public partial class BaseViewModel : ObservableObject, IDisposable
         _pageCancellationTokenSource = new CancellationTokenSource();
     }
 
+    /// <inheritdoc />
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)
@@ -109,6 +111,7 @@ public partial class BaseViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <inheritdoc />
     public void Dispose()
     {
         Dispose(true);

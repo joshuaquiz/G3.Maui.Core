@@ -10,6 +10,7 @@ namespace G3.Maui.Core.Behaviors;
 /// </summary>
 public static class KeyboardBehavior
 {
+    /// <summary>Bindable property for <see cref="GetKeyboardFlags"/>/<see cref="SetKeyboardFlags"/>.</summary>
     public static readonly BindableProperty KeyboardFlagsProperty =
         BindableProperty.CreateAttached(
             "KeyboardFlags",

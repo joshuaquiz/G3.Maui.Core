@@ -19,25 +19,32 @@ public partial class CachedImage : ContentView
     private static IImageCacheService? _cacheService;
     private CancellationTokenSource? _cts;
 
+    /// <summary>Bindable property for <see cref="Source"/>.</summary>
     public static readonly BindableProperty SourceProperty =
         BindableProperty.Create(nameof(Source), typeof(Uri), typeof(CachedImage), null,
             propertyChanged: OnSourceChanged);
 
+    /// <summary>Bindable property for <see cref="Aspect"/>.</summary>
     public static readonly BindableProperty AspectProperty =
         BindableProperty.Create(nameof(Aspect), typeof(Aspect), typeof(CachedImage), Aspect.AspectFill);
 
+    /// <summary>Bindable property for <see cref="CachedSource"/>.</summary>
     public static readonly BindableProperty CachedSourceProperty =
         BindableProperty.Create(nameof(CachedSource), typeof(ImageSource), typeof(CachedImage), null);
 
+    /// <summary>Bindable property for <see cref="IsLoading"/>.</summary>
     public static readonly BindableProperty IsLoadingProperty =
         BindableProperty.Create(nameof(IsLoading), typeof(bool), typeof(CachedImage), true);
 
+    /// <summary>Bindable property for <see cref="IsImageLoaded"/>.</summary>
     public static readonly BindableProperty IsImageLoadedProperty =
         BindableProperty.Create(nameof(IsImageLoaded), typeof(bool), typeof(CachedImage), false);
 
+    /// <summary>Bindable property for <see cref="FallbackSource"/>.</summary>
     public static readonly BindableProperty FallbackSourceProperty =
         BindableProperty.Create(nameof(FallbackSource), typeof(ImageSource), typeof(CachedImage), null);
 
+    /// <summary>Bindable property for <see cref="FadeDuration"/>.</summary>
     public static readonly BindableProperty FadeDurationProperty =
         BindableProperty.Create(nameof(FadeDuration), typeof(uint), typeof(CachedImage), 300u);
 
@@ -97,6 +104,7 @@ public partial class CachedImage : ContentView
         set => SetValue(FadeDurationProperty, value);
     }
 
+    /// <summary>Initializes a new instance of <see cref="CachedImage"/>.</summary>
     public CachedImage()
     {
         InitializeComponent();
@@ -208,6 +216,7 @@ public partial class CachedImage : ContentView
             PlaceholderBox.FadeTo(0, duration));
     }
 
+    /// <inheritdoc />
     protected override void OnHandlerChanged()
     {
         base.OnHandlerChanged();

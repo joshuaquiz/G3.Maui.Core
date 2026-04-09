@@ -18,17 +18,21 @@ public partial class ImageCarouselComponent : ContentView
 {
     private readonly ILogger<ImageCarouselComponent> _logger;
 
+    /// <summary>Bindable property for <see cref="ImageUrls"/>.</summary>
     public static readonly BindableProperty ImageUrlsProperty =
         BindableProperty.Create(nameof(ImageUrls), typeof(List<Uri>), typeof(ImageCarouselComponent), null,
             propertyChanged: OnImageUrlsChanged);
 
+    /// <summary>Bindable property for <see cref="CarouselHeight"/>.</summary>
     public static readonly BindableProperty CarouselHeightProperty =
         BindableProperty.Create(nameof(CarouselHeight), typeof(double), typeof(ImageCarouselComponent), 235.0);
 
+    /// <summary>Bindable property for <see cref="DisplayedImageUrls"/>.</summary>
     public static readonly BindableProperty DisplayedImageUrlsProperty =
         BindableProperty.Create(nameof(DisplayedImageUrls), typeof(List<Uri>), typeof(ImageCarouselComponent), null,
             defaultBindingMode: BindingMode.OneWay);
 
+    /// <summary>Bindable property for <see cref="TapCommand"/>.</summary>
     public static readonly BindableProperty TapCommandProperty =
         BindableProperty.Create(nameof(TapCommand), typeof(ICommand), typeof(ImageCarouselComponent), null);
 
@@ -60,8 +64,11 @@ public partial class ImageCarouselComponent : ContentView
         set => SetValue(TapCommandProperty, value);
     }
 
+    /// <summary>Initializes a new instance of <see cref="ImageCarouselComponent"/>.</summary>
     public ImageCarouselComponent() : this(Application.Current?.Handler?.MauiContext?.Services) { }
 
+    /// <summary>Initializes a new instance of <see cref="ImageCarouselComponent"/>.</summary>
+    /// <param name="serviceProvider">The service provider used to resolve dependencies.</param>
     public ImageCarouselComponent(IServiceProvider? serviceProvider)
     {
         if (serviceProvider == null)

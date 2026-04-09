@@ -146,6 +146,7 @@ public abstract class BaseHttpClient(
             data,
             cancellationToken);
 
+    /// <summary>Core implementation for POST, PUT, DELETE, and PATCH requests. Checks connectivity, serialises the request body, and invalidates the GET cache for the URL on success.</summary>
     protected virtual async ValueTask<TResponse> DataModificationInternal<TResponse, TRequest>(
         Uri url,
         HttpMethod httpMethod,
@@ -208,6 +209,7 @@ public abstract class BaseHttpClient(
         }
     }
 
+    /// <summary>Ensures a per-URL, per-method <see cref="SemaphoreSlim"/> exists in the lookup dictionary.</summary>
     protected async Task SemaphoreSetup(
         HttpMethod httpMethod,
         Uri url,

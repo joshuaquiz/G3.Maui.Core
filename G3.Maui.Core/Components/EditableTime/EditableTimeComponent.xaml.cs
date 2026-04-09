@@ -14,51 +14,66 @@ public partial class EditableTimeComponent : ContentView
 {
     #region Bindable Properties
 
+    /// <summary>Bindable property for <see cref="TimeValue"/>.</summary>
     public static readonly BindableProperty TimeValueProperty =
         BindableProperty.Create(nameof(TimeValue), typeof(TimeSpan?), typeof(EditableTimeComponent), null,
             BindingMode.TwoWay, propertyChanged: OnTimeValueChanged);
 
+    /// <summary>Bindable property for <see cref="LabelText"/>.</summary>
     public static readonly BindableProperty LabelTextProperty =
         BindableProperty.Create(nameof(LabelText), typeof(string), typeof(EditableTimeComponent), string.Empty);
 
+    /// <summary>Bindable property for <see cref="ShowLabel"/>.</summary>
     public static readonly BindableProperty ShowLabelProperty =
         BindableProperty.Create(nameof(ShowLabel), typeof(bool), typeof(EditableTimeComponent), false);
 
+    /// <summary>Bindable property for <see cref="ShowInlineLabel"/>.</summary>
     public static readonly BindableProperty ShowInlineLabelProperty =
         BindableProperty.Create(nameof(ShowInlineLabel), typeof(bool), typeof(EditableTimeComponent), true);
 
+    /// <summary>Bindable property for <see cref="IsEditMode"/>.</summary>
     public static readonly BindableProperty IsEditModeProperty =
         BindableProperty.Create(nameof(IsEditMode), typeof(bool), typeof(EditableTimeComponent), false,
             propertyChanged: OnIsEditModeChanged);
 
+    /// <summary>Bindable property for <see cref="IsViewMode"/>.</summary>
     public static readonly BindableProperty IsViewModeProperty =
         BindableProperty.Create(nameof(IsViewMode), typeof(bool), typeof(EditableTimeComponent), true);
 
+    /// <summary>Bindable property for <see cref="FontSize"/>.</summary>
     public static readonly BindableProperty FontSizeProperty =
         BindableProperty.Create(nameof(FontSize), typeof(double), typeof(EditableTimeComponent), 18.0);
 
+    /// <summary>Bindable property for <see cref="TextColor"/>.</summary>
     public static readonly BindableProperty TextColorProperty =
         BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(EditableTimeComponent));
 
+    /// <summary>Bindable property for <see cref="LabelFontSize"/>.</summary>
     public static readonly BindableProperty LabelFontSizeProperty =
         BindableProperty.Create(nameof(LabelFontSize), typeof(double), typeof(EditableTimeComponent), 14.0);
 
+    /// <summary>Bindable property for <see cref="LabelFontAttributes"/>.</summary>
     public static readonly BindableProperty LabelFontAttributesProperty =
         BindableProperty.Create(nameof(LabelFontAttributes), typeof(FontAttributes), typeof(EditableTimeComponent), FontAttributes.Bold);
 
+    /// <summary>Bindable property for <see cref="LabelTextColor"/>.</summary>
     public static readonly BindableProperty LabelTextColorProperty =
         BindableProperty.Create(nameof(LabelTextColor), typeof(Color), typeof(EditableTimeComponent));
 
+    /// <summary>Bindable property for <see cref="HoursPickerAutomationId"/>.</summary>
     public static readonly BindableProperty HoursPickerAutomationIdProperty =
         BindableProperty.Create(nameof(HoursPickerAutomationId), typeof(string), typeof(EditableTimeComponent), null);
 
+    /// <summary>Bindable property for <see cref="MinutesPickerAutomationId"/>.</summary>
     public static readonly BindableProperty MinutesPickerAutomationIdProperty =
         BindableProperty.Create(nameof(MinutesPickerAutomationId), typeof(string), typeof(EditableTimeComponent), null);
 
+    /// <summary>Bindable property for <see cref="SelectedHourIndex"/>.</summary>
     public static readonly BindableProperty SelectedHourIndexProperty =
         BindableProperty.Create(nameof(SelectedHourIndex), typeof(int), typeof(EditableTimeComponent), 0,
             BindingMode.TwoWay, propertyChanged: OnPickerChanged);
 
+    /// <summary>Bindable property for <see cref="SelectedMinuteIndex"/>.</summary>
     public static readonly BindableProperty SelectedMinuteIndexProperty =
         BindableProperty.Create(nameof(SelectedMinuteIndex), typeof(int), typeof(EditableTimeComponent), 0,
             BindingMode.TwoWay, propertyChanged: OnPickerChanged);
@@ -174,6 +189,7 @@ public partial class EditableTimeComponent : ContentView
 
     #endregion
 
+    /// <summary>Initializes a new instance of <see cref="EditableTimeComponent"/>.</summary>
     public EditableTimeComponent()
     {
         InitializeComponent();

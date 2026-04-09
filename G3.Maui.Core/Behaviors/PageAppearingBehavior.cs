@@ -10,9 +10,11 @@ namespace G3.Maui.Core.Behaviors;
 /// </summary>
 public class PageAppearingBehavior : Behavior<Page>
 {
+    /// <summary>Bindable property for <see cref="Command"/>.</summary>
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(PageAppearingBehavior));
 
+    /// <summary>Bindable property for <see cref="CommandParameter"/>.</summary>
     public static readonly BindableProperty CommandParameterProperty =
         BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(PageAppearingBehavior));
 
@@ -32,6 +34,7 @@ public class PageAppearingBehavior : Behavior<Page>
 
     private Page? _page;
 
+    /// <inheritdoc />
     protected override void OnAttachedTo(Page bindable)
     {
         base.OnAttachedTo(bindable);
@@ -39,6 +42,7 @@ public class PageAppearingBehavior : Behavior<Page>
         _page.Appearing += OnAppearing;
     }
 
+    /// <inheritdoc />
     protected override void OnDetachingFrom(Page bindable)
     {
         base.OnDetachingFrom(bindable);
