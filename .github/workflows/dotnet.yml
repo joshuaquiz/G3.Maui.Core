@@ -1,4 +1,4 @@
-name: .NET
+name: Build
 
 on:
   workflow_dispatch:
@@ -25,5 +25,3 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --no-restore --verbosity normal

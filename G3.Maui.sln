@@ -5,11 +5,14 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "G3.Maui.Core", "G3.Maui.Core\G3.Maui.Core.csproj", "{2A60CA2B-2564-4141-8BD2-AD7AE3392117}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "G3.Maui.Core.Tests", "G3.Maui.Core.Tests\G3.Maui.Core.Tests.csproj", "{C5A8F234-7B9E-4D6A-B123-456789012345}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F17EBD61-C5CF-4677-B811-DB367454DF2C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{695CF704-1A4C-437A-A350-24070A8AA696}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\workflows\tests.yml = .github\workflows\tests.yml
 		.github\workflows\nuget.yml = .github\workflows\nuget.yml
 	EndProjectSection
 EndProject
@@ -23,6 +26,10 @@ Global
 		{2A60CA2B-2564-4141-8BD2-AD7AE3392117}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A60CA2B-2564-4141-8BD2-AD7AE3392117}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A60CA2B-2564-4141-8BD2-AD7AE3392117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5A8F234-7B9E-4D6A-B123-456789012345}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5A8F234-7B9E-4D6A-B123-456789012345}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5A8F234-7B9E-4D6A-B123-456789012345}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5A8F234-7B9E-4D6A-B123-456789012345}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
