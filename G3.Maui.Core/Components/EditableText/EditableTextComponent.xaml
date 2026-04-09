@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="G3.Maui.Core.Components.EditableText.EditableTextComponent"
+             x:Name="Root">
+    <VerticalStackLayout Spacing="{DynamicResource G3SpacingSmall}">
+
+        <!-- Optional label -->
+        <Label x:Name="FieldLabel"
+               Text="{Binding LabelText, Source={Reference Root}}"
+               FontSize="{Binding LabelFontSize, Source={Reference Root}}"
+               FontAttributes="{Binding LabelFontAttributes, Source={Reference Root}}"
+               TextColor="{Binding LabelTextColor, Source={Reference Root}}"
+               IsVisible="{Binding ShowLabel, Source={Reference Root}}" />
+
+        <!-- View mode -->
+        <Label x:Name="DisplayLabel"
+               AutomationId="{Binding DisplayLabelAutomationId, Source={Reference Root}}"
+               Text="{Binding Text, Source={Reference Root}}"
+               FontSize="{Binding FontSize, Source={Reference Root}}"
+               FontAttributes="{Binding FontAttributes, Source={Reference Root}}"
+               TextColor="{Binding TextColor, Source={Reference Root}}"
+               HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={Reference Root}}"
+               VerticalTextAlignment="{Binding VerticalTextAlignment, Source={Reference Root}}"
+               LineBreakMode="{Binding LineBreakMode, Source={Reference Root}}"
+               MaxLines="{Binding MaxLines, Source={Reference Root}}"
+               Padding="{Binding Padding, Source={Reference Root}}"
+               IsVisible="{Binding IsViewMode, Source={Reference Root}}" />
+
+        <!-- Edit mode: single-line -->
+        <Entry x:Name="TextEntry"
+               AutomationId="{Binding EntryAutomationId, Source={Reference Root}}"
+               Text="{Binding Text, Source={Reference Root}, Mode=TwoWay}"
+               Placeholder="{Binding Placeholder, Source={Reference Root}}"
+               FontSize="{Binding FontSize, Source={Reference Root}}"
+               FontAttributes="{Binding FontAttributes, Source={Reference Root}}"
+               TextColor="{Binding TextColor, Source={Reference Root}}"
+               HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={Reference Root}}"
+               MaxLength="{Binding MaxLength, Source={Reference Root}}"
+               Keyboard="{Binding Keyboard, Source={Reference Root}}"
+               IsPassword="{Binding IsPassword, Source={Reference Root}}"
+               IsVisible="False" />
+
+        <!-- Edit mode: multi-line -->
+        <Editor x:Name="TextEditor"
+                Text="{Binding Text, Source={Reference Root}, Mode=TwoWay}"
+                Placeholder="{Binding Placeholder, Source={Reference Root}}"
+                FontSize="{Binding FontSize, Source={Reference Root}}"
+                FontAttributes="{Binding FontAttributes, Source={Reference Root}}"
+                TextColor="{Binding TextColor, Source={Reference Root}}"
+                HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={Reference Root}}"
+                MaxLength="{Binding MaxLength, Source={Reference Root}}"
+                Keyboard="{Binding Keyboard, Source={Reference Root}}"
+                AutoSize="TextChanges"
+                MinimumHeightRequest="{Binding EditorMinHeight, Source={Reference Root}}"
+                IsVisible="False" />
+
+        <!-- Validation error -->
+        <Label x:Name="ValidationErrorLabel"
+               FontSize="{DynamicResource G3FontSizeCaption}"
+               TextColor="{DynamicResource G3Danger}"
+               IsVisible="False"
+               Margin="0,4,0,0" />
+
+        <!-- Character count -->
+        <Label x:Name="CharacterCountLabel"
+               FontSize="{DynamicResource G3FontSizeCaption}"
+               TextColor="{AppThemeBinding Light={DynamicResource G3Gray600}, Dark={DynamicResource G3Gray400}}"
+               HorizontalOptions="End"
+               IsVisible="False"
+               Margin="0,4,0,0" />
+    </VerticalStackLayout>
+</ContentView>

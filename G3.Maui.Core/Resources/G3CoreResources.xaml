@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    G3CoreResources — default theme tokens for G3.Maui.Core components.
+
+    USAGE: Merge this into your App.xaml BEFORE your own resource dictionaries so your
+    values take precedence. Or call builder.UseG3MauiCoreUI() in MauiProgram.cs.
+
+    All keys are prefixed with G3 to avoid clashing with your app resource keys.
+    Override any key in your own ResourceDictionary to customise the look.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="G3.Maui.Core.Resources.G3CoreResources">
+
+    <!-- ===================== Colors ===================== -->
+    <Color x:Key="G3Primary">#512BD4</Color>
+    <Color x:Key="G3White">#FFFFFF</Color>
+    <Color x:Key="G3Black">#000000</Color>
+    <Color x:Key="G3Danger">#E53935</Color>
+    <Color x:Key="G3Tertiary">#2196F3</Color>
+
+    <!-- Gray scale -->
+    <Color x:Key="G3Gray100">#F5F5F5</Color>
+    <Color x:Key="G3Gray200">#EEEEEE</Color>
+    <Color x:Key="G3Gray300">#E0E0E0</Color>
+    <Color x:Key="G3Gray400">#BDBDBD</Color>
+    <Color x:Key="G3Gray500">#9E9E9E</Color>
+    <Color x:Key="G3Gray600">#757575</Color>
+    <Color x:Key="G3Gray700">#616161</Color>
+    <Color x:Key="G3Gray800">#424242</Color>
+    <Color x:Key="G3Gray900">#212121</Color>
+
+    <!-- Overlay background (used by LoadingOverlay) -->
+    <Color x:Key="G3OverlayBackground">#CC000000</Color>
+
+    <!-- ===================== Typography ===================== -->
+    <x:Double x:Key="G3FontSizeCaption">11</x:Double>
+    <x:Double x:Key="G3FontSizeBody">14</x:Double>
+    <x:Double x:Key="G3FontSizeTitle">16</x:Double>
+    <x:Double x:Key="G3FontSizeTitleLarge">20</x:Double>
+
+    <!-- ===================== Icons ===================== -->
+    <x:Double x:Key="G3IconSizeLarge">24</x:Double>
+
+    <!-- ===================== Spacing ===================== -->
+    <x:Double x:Key="G3SpacingXSmall">4</x:Double>
+    <x:Double x:Key="G3SpacingSmall">8</x:Double>
+    <x:Double x:Key="G3SpacingMedium">16</x:Double>
+    <x:Double x:Key="G3SpacingLarge">24</x:Double>
+
+    <!-- ===================== Thickness helpers ===================== -->
+    <Thickness x:Key="G3PaddingSmall">8</Thickness>
+    <Thickness x:Key="G3PaddingMedium">16</Thickness>
+    <Thickness x:Key="G3PaddingLarge">24</Thickness>
+
+</ResourceDictionary>

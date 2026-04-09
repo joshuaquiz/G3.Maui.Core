@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:G3.Maui.Core.Converters;assembly=G3.Maui.Core"
+             x:Class="G3.Maui.Core.Components.EditableTime.EditableTimeComponent"
+             x:Name="Root">
+    <ContentView.Resources>
+        <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
+    </ContentView.Resources>
+
+    <VerticalStackLayout Spacing="{DynamicResource G3SpacingSmall}">
+
+        <!-- Optional label -->
+        <Label x:Name="FieldLabel"
+               Text="{Binding LabelText, Source={Reference Root}}"
+               FontSize="{Binding LabelFontSize, Source={Reference Root}}"
+               FontAttributes="{Binding LabelFontAttributes, Source={Reference Root}}"
+               TextColor="{Binding LabelTextColor, Source={Reference Root}}"
+               IsVisible="{Binding ShowLabel, Source={Reference Root}}" />
+
+        <!-- View mode -->
+        <HorizontalStackLayout x:Name="ViewModeDisplay"
+                               Spacing="5"
+                               VerticalOptions="Center"
+                               IsVisible="{Binding IsViewMode, Source={Reference Root}}">
+            <Label Text="{Binding LabelText, Source={Reference Root}}"
+                   VerticalOptions="Center"
+                   FontSize="{Binding FontSize, Source={Reference Root}}"
+                   FontAttributes="Bold"
+                   IsVisible="{Binding ShowInlineLabel, Source={Reference Root}}" />
+            <Label Text="{Binding TimeValue, Source={Reference Root}, Converter={StaticResource TimeSpanToStringConverter}}"
+                   VerticalOptions="Center"
+                   FontSize="{Binding FontSize, Source={Reference Root}}"
+                   TextColor="{Binding TextColor, Source={Reference Root}}" />
+        </HorizontalStackLayout>
+
+        <!-- Edit mode -->
+        <HorizontalStackLayout x:Name="EditModeDisplay"
+                               Spacing="10"
+                               VerticalOptions="Center"
+                               IsVisible="False">
+            <Label Text="{Binding LabelText, Source={Reference Root}}"
+                   VerticalOptions="Center"
+                   FontSize="{Binding FontSize, Source={Reference Root}}"
+                   FontAttributes="Bold"
+                   IsVisible="{Binding ShowInlineLabel, Source={Reference Root}}" />
+
+            <Picker x:Name="HoursPicker"
+                    AutomationId="{Binding HoursPickerAutomationId, Source={Reference Root}}"
+                    SelectedIndex="{Binding SelectedHourIndex, Source={Reference Root}, Mode=TwoWay}"
+                    FontSize="{Binding FontSize, Source={Reference Root}}"
+                    HorizontalOptions="Start"
+                    WidthRequest="80">
+                <Picker.Items>
+                    <x:String>0</x:String><x:String>1</x:String><x:String>2</x:String>
+                    <x:String>3</x:String><x:String>4</x:String><x:String>5</x:String>
+                    <x:String>6</x:String><x:String>7</x:String><x:String>8</x:String>
+                    <x:String>9</x:String><x:String>10</x:String><x:String>11</x:String>
+                    <x:String>12</x:String><x:String>13</x:String><x:String>14</x:String>
+                    <x:String>15</x:String><x:String>16</x:String><x:String>17</x:String>
+                    <x:String>18</x:String><x:String>19</x:String><x:String>20</x:String>
+                    <x:String>21</x:String><x:String>22</x:String><x:String>23</x:String>
+                    <x:String>24</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="H" VerticalOptions="Center"
+                   FontSize="{Binding FontSize, Source={Reference Root}}" FontAttributes="Bold" />
+
+            <Picker x:Name="MinutesPicker"
+                    AutomationId="{Binding MinutesPickerAutomationId, Source={Reference Root}}"
+                    SelectedIndex="{Binding SelectedMinuteIndex, Source={Reference Root}, Mode=TwoWay}"
+                    FontSize="{Binding FontSize, Source={Reference Root}}"
+                    HorizontalOptions="Start"
+                    WidthRequest="80">
+                <Picker.Items>
+                    <x:String>0</x:String><x:String>5</x:String><x:String>10</x:String>
+                    <x:String>15</x:String><x:String>20</x:String><x:String>25</x:String>
+                    <x:String>30</x:String><x:String>35</x:String><x:String>40</x:String>
+                    <x:String>45</x:String><x:String>50</x:String><x:String>55</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="M" VerticalOptions="Center"
+                   FontSize="{Binding FontSize, Source={Reference Root}}" FontAttributes="Bold" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentView>

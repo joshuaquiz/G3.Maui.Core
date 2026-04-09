@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="G3.Maui.Core.Components.LoadingOverlay.LoadingOverlay"
+      x:Name="Root"
+      BackgroundColor="{DynamicResource G3OverlayBackground}"
+      InputTransparent="False"
+      IsVisible="False">
+    <VerticalStackLayout
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        Spacing="20">
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            Color="{DynamicResource G3Primary}"
+            WidthRequest="50"
+            HeightRequest="50"
+            IsRunning="False" />
+        <Label
+            x:Name="LoadingLabel"
+            Text="{Binding Source={x:Reference Root}, Path=LoadingMessage}"
+            TextColor="White"
+            FontSize="{DynamicResource G3FontSizeTitle}"
+            FontAttributes="Bold"
+            HorizontalTextAlignment="Center" />
+        <Button
+            x:Name="CancelButton"
+            Text="{Binding Source={x:Reference Root}, Path=CancellationButtonText}"
+            Command="{Binding Source={x:Reference Root}, Path=CancellationCommand}"
+            IsVisible="False"
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</Grid>

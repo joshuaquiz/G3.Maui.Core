@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="G3.Maui.Core.Components.CachedImage.CachedImage"
+             x:Name="Root">
+    <Grid>
+        <!-- Placeholder shown while loading; fades out once the image is ready -->
+        <BoxView x:Name="PlaceholderBox"
+                 BackgroundColor="{AppThemeBinding Light=White, Dark=Black}" />
+
+        <!-- Loaded or fallback image; starts transparent and fades in -->
+        <Image x:Name="CachedImageControl"
+               Source="{Binding Source={x:Reference Root}, Path=CachedSource}"
+               Aspect="{Binding Source={x:Reference Root}, Path=Aspect}"
+               Opacity="0" />
+    </Grid>
+</ContentView>

@@ -12,12 +12,13 @@ using Microsoft.Extensions.Logging;
 namespace G3.Maui.Core.Models;
 
 /// <summary>
-/// A base class for handling HTTP requests.
+/// A base class for handling HTTP requests with connectivity checking, semaphore-based
+/// deduplication, and optional response caching. Extend this class and inject it via DI.
 /// </summary>
-/// <param name="connectivity"></param>
-/// <param name="httpClient"></param>
-/// <param name="memoryCache"></param>
-/// <param name="logger"></param>
+/// <param name="connectivity">Used to check whether the device has an active internet connection.</param>
+/// <param name="httpClient">The underlying <see cref="HttpClient"/> used to make requests.</param>
+/// <param name="memoryCache">Cache used to store GET responses. Pass a keyed expiry via the Get overload.</param>
+/// <param name="logger">Logger for request errors.</param>
 public abstract class BaseHttpClient(
     IConnectivity connectivity,
     HttpClient httpClient,
@@ -28,11 +29,17 @@ public abstract class BaseHttpClient(
     private readonly SemaphoreSlim _lookupSemaphore = new(1);
     private readonly ConcurrentDictionary<string, ConcurrentDictionary<HttpMethod, SemaphoreSlim>> _semaphoreSlims = new();
 
+    /// <summary>Returns true when the device has Internet or ConstrainedInternet access.</summary>
     protected bool HasInternet() =>
         connectivity.NetworkAccess
             is NetworkAccess.Internet
             or NetworkAccess.ConstrainedInternet;
 
+    /// <summary>
+    /// Sends a GET request and deserializes the response to <typeparamref name="TResponse"/>.
+    /// Concurrent requests to the same URL are serialized via a per-URL semaphore.
+    /// Pass <paramref name="cacheExpiry"/> to cache the result; defaults to 3 seconds.
+    /// </summary>
     public async ValueTask<TResponse> Get<TResponse>(
         Uri url,
         CancellationToken cancellationToken,
@@ -96,6 +103,7 @@ public abstract class BaseHttpClient(
         }
     }
 
+    /// <summary>Sends a POST request with <paramref name="data"/> as the JSON body and returns the deserialized response.</summary>
     public async ValueTask<TResponse> Post<TResponse, TRequest>(
         Uri url,
         TRequest data,
@@ -106,6 +114,7 @@ public abstract class BaseHttpClient(
             data,
             cancellationToken);
 
+    /// <summary>Sends a PUT request with <paramref name="data"/> as the JSON body and returns the deserialized response.</summary>
     public async ValueTask<TResponse> Put<TResponse, TRequest>(
         Uri url,
         TRequest data,
@@ -116,6 +125,7 @@ public abstract class BaseHttpClient(
             data,
             cancellationToken);
 
+    /// <summary>Sends a DELETE request and returns the deserialized response.</summary>
     public async ValueTask<TResponse> Delete<TResponse>(
         Uri url,
         CancellationToken cancellationToken) =>
@@ -125,6 +135,7 @@ public abstract class BaseHttpClient(
             null,
             cancellationToken);
 
+    /// <summary>Sends a PATCH request with <paramref name="data"/> as the JSON body and returns the deserialized response.</summary>
     public async ValueTask<TResponse> Patch<TResponse, TRequest>(
         Uri url,
         TRequest data,
@@ -213,7 +224,6 @@ public abstract class BaseHttpClient(
                     url.AbsolutePath,
                     new ConcurrentDictionary<HttpMethod, SemaphoreSlim>());
             }
-
             if (!_semaphoreSlims[url.AbsolutePath].ContainsKey(
                     httpMethod))
             {

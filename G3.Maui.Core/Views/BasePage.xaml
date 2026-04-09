@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:navBar="clr-namespace:G3.Maui.Core.Components.CustomNavBar;assembly=G3.Maui.Core"
+             xmlns:loadingOverlay="clr-namespace:G3.Maui.Core.Components.LoadingOverlay;assembly=G3.Maui.Core"
+             x:Class="G3.Maui.Core.Views.BasePage"
+             x:Name="Root"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.ControlTemplate>
+        <ControlTemplate>
+            <!-- Row 0: top nav bar  Row 1: page content  Row 2: ad slot  Row 3: bottom bar -->
+            <Grid RowDefinitions="Auto,*,Auto,Auto" VerticalOptions="Fill">
+
+                <!-- Custom NavBar -->
+                <navBar:CustomNavBar
+                    Grid.Row="0"
+                    HeightRequest="56"
+                    IsVisible="{TemplateBinding ShowTopNavBar}"
+                    Title="{TemplateBinding NavBarTitle, Mode=TwoWay}"
+                    TitleIsEditable="{TemplateBinding NavBarTitleIsEditable}"
+                    ShowBackButton="{TemplateBinding ShowNavBarBackButton}"
+                    BackCommand="{TemplateBinding NavBarBackCommand}"
+                    Commands="{TemplateBinding NavBarCommands}"
+                    BackgroundColor="{TemplateBinding NavBarBackgroundColor}"
+                    IconTintColor="{TemplateBinding NavBarIconTintColor}">
+                    <navBar:CustomNavBar.Triggers>
+                        <DataTrigger TargetType="navBar:CustomNavBar"
+                                     Binding="{TemplateBinding ShowTopNavBar}" Value="False">
+                            <Setter Property="HeightRequest" Value="0"/>
+                        </DataTrigger>
+                    </navBar:CustomNavBar.Triggers>
+                </navBar:CustomNavBar>
+
+                <!-- Page content -->
+                <ContentPresenter Grid.Row="1"/>
+
+                <!-- Ad slot — client provides AdContent; hidden when ShowAdPlaceholder=false -->
+                <ContentView Grid.Row="2"
+                             IsVisible="{TemplateBinding ShowAdPlaceholder}"
+                             HeightRequest="50"
+                             Content="{TemplateBinding AdContent}">
+                    <ContentView.Triggers>
+                        <DataTrigger TargetType="ContentView"
+                                     Binding="{TemplateBinding ShowAdPlaceholder}" Value="False">
+                            <Setter Property="HeightRequest" Value="0"/>
+                        </DataTrigger>
+                    </ContentView.Triggers>
+                </ContentView>
+
+                <!-- Bottom bar slot — client provides BottomBarContent -->
+                <ContentView Grid.Row="3"
+                             IsVisible="{TemplateBinding ShowBottomNavBar}"
+                             Content="{TemplateBinding BottomBarContent}">
+                    <ContentView.Triggers>
+                        <DataTrigger TargetType="ContentView"
+                                     Binding="{TemplateBinding ShowBottomNavBar}" Value="False">
+                            <Setter Property="HeightRequest" Value="0"/>
+                        </DataTrigger>
+                    </ContentView.Triggers>
+                </ContentView>
+
+                <!-- Loading overlay — always on top -->
+                <loadingOverlay:LoadingOverlay
+                    x:Name="LoadingOverlay"
+                    Grid.Row="0"
+                    Grid.RowSpan="4"
+                    ZIndex="100"
+                    IsLoading="{TemplateBinding BindingContext.IsBusy}"
+                    LoadingMessage="{TemplateBinding BindingContext.LoadingMessage}"/>
+            </Grid>
+        </ControlTemplate>
+    </ContentPage.ControlTemplate>
+</ContentPage>

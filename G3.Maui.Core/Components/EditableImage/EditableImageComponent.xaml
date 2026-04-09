@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="G3.Maui.Core.Components.EditableImage.EditableImageComponent"
+             x:Name="Root">
+    <VerticalStackLayout Spacing="{DynamicResource G3SpacingMedium}">
+
+        <Label Text="{Binding LabelText, Source={Reference Root}}"
+               FontSize="{DynamicResource G3FontSizeBody}"
+               FontAttributes="Bold"
+               Margin="0,0,0,10"
+               IsVisible="{Binding ShowLabel, Source={Reference Root}}" />
+
+        <Border x:Name="ImageContainer"
+                AutomationId="{Binding ContainerAutomationId, Source={Reference Root}}"
+                HeightRequest="{Binding ImageHeight, Source={Reference Root}}"
+                BackgroundColor="{AppThemeBinding Light={DynamicResource G3Gray100}, Dark={DynamicResource G3Gray800}}"
+                StrokeThickness="2"
+                Stroke="{AppThemeBinding Light={DynamicResource G3Gray300}, Dark={DynamicResource G3Gray600}}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="{Binding CornerRadius, Source={Reference Root}}" />
+            </Border.StrokeShape>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=SelectImageCommand}" />
+            </Border.GestureRecognizers>
+
+            <Grid>
+                <Border x:Name="ImageClipBorder" IsVisible="False">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="{Binding CornerRadius, Source={Reference Root}}" />
+                    </Border.StrokeShape>
+                    <Image x:Name="PreviewImage" Aspect="AspectFill" />
+                </Border>
+
+                <!-- Remove button (edit mode only) -->
+                <Border x:Name="RemoveImageButton"
+                        WidthRequest="32" HeightRequest="32"
+                        BackgroundColor="{DynamicResource G3Primary}"
+                        VerticalOptions="Start" HorizontalOptions="End"
+                        Margin="8" IsVisible="False">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16" />
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=RemoveImageCommand}" />
+                    </Border.GestureRecognizers>
+                    <Label Text="✕" FontSize="18" FontAttributes="Bold"
+                           TextColor="{DynamicResource G3White}"
+                           VerticalOptions="Center" HorizontalOptions="Center" />
+                </Border>
+
+                <!-- Placeholder (edit mode, no image) -->
+                <VerticalStackLayout x:Name="ImagePlaceholder"
+                                     VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <Label Text="📷" FontSize="48" HorizontalOptions="Center" />
+                    <Label Text="{Binding PlaceholderText, Source={Reference Root}}"
+                           FontSize="{DynamicResource G3FontSizeBody}" HorizontalOptions="Center"
+                           TextColor="{AppThemeBinding Light={DynamicResource G3Gray600}, Dark={DynamicResource G3Gray400}}" />
+                    <Label Text="{Binding HintText, Source={Reference Root}}"
+                           FontSize="{DynamicResource G3FontSizeCaption}" HorizontalOptions="Center"
+                           TextColor="{AppThemeBinding Light={DynamicResource G3Gray500}, Dark={DynamicResource G3Gray500}}" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+    </VerticalStackLayout>
+</ContentView>

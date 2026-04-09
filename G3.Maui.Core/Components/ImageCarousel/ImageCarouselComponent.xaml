@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cachedImage="clr-namespace:G3.Maui.Core.Components.CachedImage;assembly=G3.Maui.Core"
+             x:Class="G3.Maui.Core.Components.ImageCarousel.ImageCarouselComponent"
+             x:Name="Root">
+    <Grid>
+        <CarouselView x:Name="ImageCarousel"
+                      ItemsSource="{Binding DisplayedImageUrls, Source={x:Reference Root}}"
+                      Position="0"
+                      IndicatorView="ImageIndicator"
+                      HorizontalOptions="Fill"
+                      VerticalOptions="Fill"
+                      HeightRequest="{Binding CarouselHeight, Source={x:Reference Root}}"
+                      Loop="False"
+                      HorizontalScrollBarVisibility="Never">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <cachedImage:CachedImage Source="{Binding .}"
+                                             Aspect="AspectFill"
+                                             HorizontalOptions="Fill"
+                                             VerticalOptions="Fill">
+                        <cachedImage:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TapCommand, Source={x:Reference Root}}" />
+                        </cachedImage:CachedImage.GestureRecognizers>
+                    </cachedImage:CachedImage>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+        <IndicatorView x:Name="ImageIndicator"
+                       VerticalOptions="End" HorizontalOptions="Center"
+                       Margin="0,0,0,10"
+                       IndicatorColor="{DynamicResource G3Gray400}"
+                       SelectedIndicatorColor="{DynamicResource G3Tertiary}"
+                       IndicatorSize="8">
+            <IndicatorView.Triggers>
+                <DataTrigger TargetType="IndicatorView"
+                             Binding="{Binding DisplayedImageUrls.Count, Source={x:Reference Root}}"
+                             Value="1">
+                    <Setter Property="IsVisible" Value="False"/>
+                </DataTrigger>
+                <DataTrigger TargetType="IndicatorView"
+                             Binding="{Binding DisplayedImageUrls.Count, Source={x:Reference Root}}"
+                             Value="0">
+                    <Setter Property="IsVisible" Value="False"/>
+                </DataTrigger>
+            </IndicatorView.Triggers>
+        </IndicatorView>
+    </Grid>
+</ContentView>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="G3.Maui.Core.Components.EmptyState.EmptyStateView"
+             x:Name="Root">
+    <Grid VerticalOptions="Center"
+          HorizontalOptions="Center"
+          Padding="{DynamicResource G3SpacingLarge}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="{DynamicResource G3SpacingMedium}" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="{DynamicResource G3SpacingSmall}" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="{DynamicResource G3SpacingMedium}" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Image Grid.Row="0"
+               Source="{Binding Source={x:Reference Root}, Path=IconSource}"
+               WidthRequest="120"
+               HeightRequest="120"
+               HorizontalOptions="Center"
+               Opacity="0.5" />
+
+        <Label Grid.Row="2"
+               Text="{Binding Source={x:Reference Root}, Path=Title}"
+               FontSize="{DynamicResource G3FontSizeTitle}"
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center"
+               TextColor="{AppThemeBinding Light={DynamicResource G3Gray600}, Dark={DynamicResource G3Gray400}}" />
+
+        <Label Grid.Row="4"
+               Text="{Binding Source={x:Reference Root}, Path=Message}"
+               FontSize="{DynamicResource G3FontSizeBody}"
+               HorizontalTextAlignment="Center"
+               TextColor="{AppThemeBinding Light={DynamicResource G3Gray500}, Dark={DynamicResource G3Gray500}}" />
+
+        <Button Grid.Row="6"
+                Text="{Binding Source={x:Reference Root}, Path=ActionButtonText}"
+                Command="{Binding Source={x:Reference Root}, Path=ActionCommand}"
+                IsVisible="{Binding Source={x:Reference Root}, Path=ShowActionButton}"
+                HorizontalOptions="Center"
+                Padding="{DynamicResource G3SpacingMedium}"
+                BackgroundColor="{DynamicResource G3Primary}"
+                TextColor="{DynamicResource G3White}" />
+    </Grid>
+</ContentView>

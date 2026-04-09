@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cachedImage="clr-namespace:G3.Maui.Core.Components.CachedImage;assembly=G3.Maui.Core"
+             xmlns:imageCarousel="clr-namespace:G3.Maui.Core.Components.ImageCarousel;assembly=G3.Maui.Core"
+             x:Class="G3.Maui.Core.Components.EditableImageCarousel.EditableImageCarouselComponent"
+             x:Name="Root">
+    <Grid>
+        <!-- View mode -->
+        <imageCarousel:ImageCarouselComponent x:Name="ViewModeCarousel"
+                                              ImageUrls="{Binding DisplayedImageUrls, Source={x:Reference Root}}"
+                                              CarouselHeight="{Binding CarouselHeight, Source={x:Reference Root}}"
+                                              IsVisible="False" />
+
+        <!-- Edit mode -->
+        <Grid x:Name="EditModeCarousel" IsVisible="False">
+            <CarouselView x:Name="EditImageCarousel"
+                          ItemsSource="{Binding EditModeItems, Source={x:Reference Root}}"
+                          Position="0"
+                          IndicatorView="EditImageIndicator"
+                          HorizontalOptions="Fill" VerticalOptions="Fill"
+                          HeightRequest="{Binding CarouselHeight, Source={x:Reference Root}}"
+                          Loop="False" HorizontalScrollBarVisibility="Never">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <!-- Existing image with remove button -->
+                            <Border x:Name="ImageBorder" StrokeThickness="0"
+                                    HorizontalOptions="Fill" VerticalOptions="Fill">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="0"/></Border.StrokeShape>
+                                <Border.Triggers>
+                                    <DataTrigger TargetType="Border" Binding="{Binding IsPlaceholder}" Value="True">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </DataTrigger>
+                                </Border.Triggers>
+                                <Grid>
+                                    <cachedImage:CachedImage Source="{Binding ImageUrl}"
+                                                             Aspect="AspectFill"
+                                                             HorizontalOptions="Fill"
+                                                             VerticalOptions="Fill"/>
+                                    <Border WidthRequest="32" HeightRequest="32"
+                                            BackgroundColor="{DynamicResource G3Primary}"
+                                            VerticalOptions="Start" HorizontalOptions="End" Margin="8">
+                                        <Border.StrokeShape><RoundRectangle CornerRadius="16"/></Border.StrokeShape>
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=RemoveImageCommand}"
+                                                                  CommandParameter="{Binding ImageUrl}"/>
+                                        </Border.GestureRecognizers>
+                                        <Label Text="✕" FontSize="18" FontAttributes="Bold"
+                                               TextColor="{DynamicResource G3White}"
+                                               VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <!-- Add image placeholder -->
+                            <Border x:Name="PlaceholderBorder"
+                                    HeightRequest="{Binding Source={x:Reference Root}, Path=CarouselHeight}"
+                                    BackgroundColor="{AppThemeBinding Light={DynamicResource G3Gray100}, Dark={DynamicResource G3Gray800}}"
+                                    StrokeThickness="2"
+                                    Stroke="{AppThemeBinding Light={DynamicResource G3Gray300}, Dark={DynamicResource G3Gray600}}">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="0"/></Border.StrokeShape>
+                                <Border.Triggers>
+                                    <DataTrigger TargetType="Border" Binding="{Binding IsPlaceholder}" Value="False">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </DataTrigger>
+                                </Border.Triggers>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=AddImageCommand}"/>
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                                    <Label Text="📷" FontSize="48" HorizontalOptions="Center"/>
+                                    <Label Text="Tap to Add Image" FontSize="{DynamicResource G3FontSizeBody}"
+                                           HorizontalOptions="Center"
+                                           TextColor="{AppThemeBinding Light={DynamicResource G3Gray600}, Dark={DynamicResource G3Gray400}}"/>
+                                    <Label Text="JPG or PNG, max 8MB" FontSize="{DynamicResource G3FontSizeCaption}"
+                                           HorizontalOptions="Center"
+                                           TextColor="{AppThemeBinding Light={DynamicResource G3Gray500}, Dark={DynamicResource G3Gray500}}"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <IndicatorView x:Name="EditImageIndicator"
+                           VerticalOptions="End" HorizontalOptions="Center"
+                           Margin="0,0,0,10"
+                           IndicatorColor="{DynamicResource G3Gray400}"
+                           SelectedIndicatorColor="{DynamicResource G3Tertiary}"
+                           IndicatorSize="8">
+                <IndicatorView.Triggers>
+                    <DataTrigger TargetType="IndicatorView"
+                                 Binding="{Binding EditModeItems.Count, Source={x:Reference Root}}" Value="1">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="IndicatorView"
+                                 Binding="{Binding EditModeItems.Count, Source={x:Reference Root}}" Value="0">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
+                </IndicatorView.Triggers>
+            </IndicatorView>
+        </Grid>
+    </Grid>
+</ContentView>

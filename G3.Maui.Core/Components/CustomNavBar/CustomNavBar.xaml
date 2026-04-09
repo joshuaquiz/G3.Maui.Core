@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:editableText="clr-namespace:G3.Maui.Core.Components.EditableText;assembly=G3.Maui.Core"
+             x:Class="G3.Maui.Core.Components.CustomNavBar.CustomNavBar"
+             x:Name="Root">
+    <Grid x:Name="NavBarGrid"
+          BackgroundColor="{Binding Source={x:Reference Root}, Path=BackgroundColor}"
+          Padding="20,12"
+          HeightRequest="{Binding Source={x:Reference Root}, Path=Height}"
+          MinimumHeightRequest="56">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Back button -->
+        <ImageButton x:Name="BackButton"
+                     Grid.Column="0"
+                     Source="arrow_back"
+                     WidthRequest="{DynamicResource G3IconSizeLarge}"
+                     HeightRequest="{DynamicResource G3IconSizeLarge}"
+                     MaximumWidthRequest="{DynamicResource G3IconSizeLarge}"
+                     MaximumHeightRequest="{DynamicResource G3IconSizeLarge}"
+                     VerticalOptions="Center" HorizontalOptions="Center"
+                     BackgroundColor="Transparent"
+                     Aspect="AspectFit"
+                     Padding="0" Margin="0"
+                     IsVisible="{Binding Source={x:Reference Root}, Path=ShowBackButton}"
+                     Command="{Binding Source={x:Reference Root}, Path=BackCommand}">
+            <ImageButton.Behaviors>
+                <toolkit:IconTintColorBehavior TintColor="{Binding Source={x:Reference Root}, Path=IconTintColor}"/>
+            </ImageButton.Behaviors>
+        </ImageButton>
+
+        <!-- Spacer after back button -->
+        <BoxView Grid.Column="1" WidthRequest="10"
+                 IsVisible="{Binding Source={x:Reference Root}, Path=ShowBackButton}"
+                 Color="Transparent"/>
+
+        <!-- Title field -->
+        <editableText:EditableTextComponent x:Name="TitleField"
+                                             Grid.Column="2"
+                                             Text="{Binding Source={x:Reference Root}, Path=Title, Mode=TwoWay}"
+                                             FontSize="{DynamicResource G3FontSizeTitleLarge}"
+                                             FontAttributes="Bold"
+                                             TextColor="{Binding Source={x:Reference Root}, Path=IconTintColor}"
+                                             HorizontalTextAlignment="Start"
+                                             VerticalTextAlignment="Center"
+                                             VerticalOptions="Fill"
+                                             ShowLabel="False"
+                                             IsEditMode="{Binding Source={x:Reference Root}, Path=TitleIsEditable}"
+                                             KeyboardType="CapitalizeWord"
+                                             IsVisible="{Binding Source={x:Reference Root}, Path=HasTitle}"
+                                             Padding="0" Margin="0">
+            <editableText:EditableTextComponent.Triggers>
+                <DataTrigger TargetType="editableText:EditableTextComponent"
+                             Binding="{Binding Source={x:Reference Root}, Path=TitleIsEditable}"
+                             Value="True">
+                    <Setter Property="IsVisible" Value="True"/>
+                </DataTrigger>
+            </editableText:EditableTextComponent.Triggers>
+        </editableText:EditableTextComponent>
+
+        <!-- Command icons (populated in code-behind) -->
+        <HorizontalStackLayout x:Name="CommandsContainer"
+                                Grid.Column="4"
+                                Spacing="16"
+                                VerticalOptions="Center"
+                                HorizontalOptions="End"/>
+    </Grid>
+</ContentView>
