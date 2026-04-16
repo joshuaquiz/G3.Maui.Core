@@ -68,7 +68,12 @@ public class IconTintColorBehavior : Behavior<ImageButton>
         {
             if (TintColor is { } color)
             {
-                imageView.SetColorFilter(color.ToPlatform(), Android.Graphics.PorterDuff.Mode.SrcIn!);
+                var androidColor = new Android.Graphics.Color(
+                    (byte)(color.Red * 255),
+                    (byte)(color.Green * 255),
+                    (byte)(color.Blue * 255),
+                    (byte)(color.Alpha * 255));
+                imageView.SetColorFilter(androidColor, Android.Graphics.PorterDuff.Mode.SrcIn!);
             }
             else
             {
@@ -78,7 +83,9 @@ public class IconTintColorBehavior : Behavior<ImageButton>
 #elif IOS || MACCATALYST
         if (_view.Handler?.PlatformView is UIKit.UIButton button)
         {
-            button.TintColor = TintColor?.ToPlatform() ?? UIKit.UIColor.White;
+            button.TintColor = TintColor is { } c
+                ? UIKit.UIColor.FromRGBA(c.Red, c.Green, c.Blue, c.Alpha)
+                : UIKit.UIColor.White;
         }
 #endif
     }
