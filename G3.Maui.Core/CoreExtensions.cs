@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using CommunityToolkit.Maui;
 using G3.Maui.Core.Components.CachedImage;
 using G3.Maui.Core.Interfaces;
 using G3.Maui.Core.Models;
@@ -55,7 +54,7 @@ public static class CoreExtensions
     /// <summary>
     /// Registers G3.Maui.Core UI components with the MAUI application builder.
     /// This merges the default <see cref="G3CoreResources"/> token dictionary into the app
-    /// resources and initialises CommunityToolkit.Maui. Call this in your MauiProgram.cs.
+    /// resources. Call this in your MauiProgram.cs.
     /// </summary>
     /// <param name="builder">The <see cref="MauiAppBuilder"/> to configure.</param>
     /// <param name="imageCacheService">
@@ -67,9 +66,6 @@ public static class CoreExtensions
         this MauiAppBuilder builder,
         IImageCacheService? imageCacheService = null)
     {
-        // Initialise CommunityToolkit.Maui (required for IconTintColorBehavior used in CustomNavBar)
-        builder.UseMauiCommunityToolkit();
-
         // Merge default resource tokens so components render without client configuration
         var app = Application.Current;
         if (app != null)

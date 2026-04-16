@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using G3.Maui.Core.Behaviors;
 using G3.Maui.Core.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui;
@@ -297,7 +298,7 @@ public partial class CustomNavBar : ContentView
             Command = cmd.Command,
             CommandParameter = cmd.CommandParameter
         };
-        btn.Behaviors.Add(new CommunityToolkit.Maui.Behaviors.IconTintColorBehavior { TintColor = IconTintColor ?? Colors.White });
+        btn.Behaviors.Add(new IconTintColorBehavior { TintColor = IconTintColor ?? Colors.White });
         return btn;
     }
 
@@ -317,7 +318,7 @@ public partial class CustomNavBar : ContentView
             Margin = 0
         };
         btn.Clicked += OnOverflowClicked;
-        btn.Behaviors.Add(new CommunityToolkit.Maui.Behaviors.IconTintColorBehavior { TintColor = IconTintColor ?? Colors.White });
+        btn.Behaviors.Add(new IconTintColorBehavior { TintColor = IconTintColor ?? Colors.White });
         return btn;
     }
 
