@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+          cache: true
+          cache-dependency-path: "**/*.csproj"
+      - name: Install .NET MAUI workload
+        shell: pwsh
+        run: dotnet workload install maui --source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet10/nuget/v3/index.json --source https://api.nuget.org/v3/index.json
+      - name: Restore
+        run: dotnet restore
+      - name: Build
+        run: dotnet build -c Release --no-restore
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: "**/bin/Release/**"
+          retention-days: 1
+
+  test:
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-output
+      - name: Test
+        run: dotnet test G3.Maui.Core.Tests/bin/Release/net10.0-windows10.0.19041.0/G3.Maui.Core.Tests.dll --verbosity normal
+
+  nuget:
+    needs: test
+    runs-on: windows-latest
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-output
+      - name: Publish to NuGet
+        run: dotnet nuget push "**/*.nupkg" --skip-duplicate --api-key ${{ secrets.NUGETTOKEN }} --source https://api.nuget.org/v3/index.json
