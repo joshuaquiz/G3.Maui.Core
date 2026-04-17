@@ -74,6 +74,10 @@ public partial class CustomNavBar : ContentView
     public static readonly BindableProperty TitleIsEditableProperty =
         BindableProperty.Create(nameof(TitleIsEditable), typeof(bool), typeof(CustomNavBar), false);
 
+    /// <summary>Bindable property for <see cref="TitleEntryAutomationId"/>.</summary>
+    public static readonly BindableProperty TitleEntryAutomationIdProperty =
+        BindableProperty.Create(nameof(TitleEntryAutomationId), typeof(string), typeof(CustomNavBar), null);
+
     #endregion
 
     #region Properties
@@ -142,6 +146,13 @@ public partial class CustomNavBar : ContentView
     {
         get => (bool)GetValue(TitleIsEditableProperty);
         set => SetValue(TitleIsEditableProperty, value);
+    }
+
+    /// <summary>AutomationId forwarded to the title entry's underlying Entry element (for UI testing).</summary>
+    public string? TitleEntryAutomationId
+    {
+        get => (string?)GetValue(TitleEntryAutomationIdProperty);
+        set => SetValue(TitleEntryAutomationIdProperty, value);
     }
 
     #endregion

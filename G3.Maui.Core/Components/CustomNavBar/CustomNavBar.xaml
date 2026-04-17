@@ -54,6 +54,7 @@
                                              VerticalOptions="Fill"
                                              ShowLabel="False"
                                              IsEditMode="{Binding Source={x:Reference Root}, Path=TitleIsEditable}"
+                                             EntryAutomationId="{Binding Source={x:Reference Root}, Path=TitleEntryAutomationId}"
                                              KeyboardType="CapitalizeWord"
                                              IsVisible="{Binding Source={x:Reference Root}, Path=HasTitle}"
                                              Padding="0" Margin="0">
